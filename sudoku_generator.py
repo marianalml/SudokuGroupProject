@@ -22,6 +22,7 @@ class SudokuGenerator:
 	Return:
 	None
     '''
+
     def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
@@ -35,8 +36,9 @@ class SudokuGenerator:
 	Parameters: None
 	Return: list[list]
     '''
+
     def get_board(self):
-        pass
+        return self.board
 
     '''
 	Displays the board to the console
@@ -45,8 +47,10 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
+
     def print_board(self):
-        pass
+        for row in self.board:
+            print(row)
 
     '''
 	Determines if num is contained in the specified row (horizontal) of the board
@@ -114,6 +118,16 @@ class SudokuGenerator:
     def is_valid(self, row, col, num):
         pass
 
+    def is_valid(self, row, col, num):
+        return (
+                self.valid_in_row(row, num) and
+                self.valid_in_col(col, num) and
+                self.valid_in_box(
+                    row - row % self.box_length,
+                    col - col % self.box_length,
+                    num
+                )
+        )
     '''
     Fills the specified 3x3 box with values
     For each position, generates a random digit which has not yet been used in the box
@@ -124,8 +138,16 @@ class SudokuGenerator:
 
 	Return: None
     '''
+
     def fill_box(self, row_start, col_start):
-        pass
+        nums = list(range(1, self.row_length + 1))
+        random.shuffle(nums)
+
+        idx = 0
+        for r in range(row_start, row_start + self.box_length):
+            for c in range(col_start, col_start + self.box_length):
+                self.board[r][c] = nums[idx]
+                idx += 1
     
     '''
     Fills the three boxes along the main diagonal of the board
@@ -201,8 +223,19 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
+
     def remove_cells(self):
-        pass
+        removed = 0
+        used_positions = set()
+
+        while removed < self.removed_cells:
+            row = random.randint(0, self.row_length - 1)
+            col = random.randint(0, self.row_length - 1)
+
+            if (row, col) not in used_positions:
+                used_positions.add((row, col))
+                self.board[row][col] = 0
+                removed += 1
 
 '''
 DO NOT CHANGE
