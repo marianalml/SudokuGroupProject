@@ -5,6 +5,22 @@ board_size = cell_size * 9
 
 class Board:
 
+    def __init__(self, screen, board, solution):
+        self.screen = screen
+        self.board = board
+        self.original = board
+        self.solution = solution
+        self.selected = None
+
+        self.cells = []
+        for r in range(9):
+            row_list = []
+            for c in range(9):
+                value = board[r][c]
+                row_list.append(Cell(value, r, c, screen))
+            self.cells.append(row_list)
+
+
     def draw(self):
         for r in range(9):
             for c in range(9):
