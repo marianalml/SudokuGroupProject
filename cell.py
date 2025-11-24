@@ -1,4 +1,5 @@
 import pygame
+from center_board import cell_size, offset_x, offset_y
 
 cell_size = 50
 
@@ -23,8 +24,8 @@ class Cell:
         self.sketched_value = value
 
     def draw(self):
-        x = self.col * cell_size
-        y = self.row * cell_size
+        x = self.col * cell_size + offset_x
+        y = self.row * cell_size + offset_y
 
         pygame.draw.rect(self.screen, (255, 255, 255), pygame.Rect(x, y, cell_size, cell_size))
 

@@ -1,5 +1,6 @@
 import pygame
-from cell import Cell, cell_size
+from cell import Cell
+from center_board import cell_size, offset_x, offset_y
 
 board_size = cell_size * 9
 
@@ -31,15 +32,15 @@ class Board:
 
             pygame.draw.line(
                 self.screen,(0,0,0),
-                (0, i * cell_size),
-                (board_size, i * cell_size),
+                (offset_x, offset_y + i * cell_size),
+                (offset_x + board_size, offset_y + i * cell_size),
                 thickness
             )
 
             pygame.draw.line(
                 self.screen,(0,0,0),
-                (i * cell_size, 0),
-                (i * cell_size, board_size),
+                (offset_x + i * cell_size, offset_y),
+                (offset_x + i * cell_size, offset_y + board_size),
                 thickness
             )
 
@@ -52,11 +53,11 @@ class Board:
         self.cells[row][col].selected = True
 
     def click(self, x, y):
-        if x < 0 or x >= board_size or y < 0 or y >= board_size:
+        if not (offset_x <= x < offset_x + board_size and offset_y <= y < offset_y + board_size):
             return None
 
-        row = y // cell_size
-        col = x // cell_size
+        row = (y - offset_y) // cell_size
+        col = (x - offset_x) // cell_size
         return (row, col)
 
     def sketch(self, value):

@@ -1,10 +1,14 @@
 import pygame
 from board import Board
-from sudoku_generator import generate_sudoku
+from sudoku_generator import generate_sudoku, SudokuGenerator
 
 pygame.init()
 screen = pygame.display.set_mode((600, 750))
 pygame.display.set_caption('Sudoku')
+
+solution_generator = SudokuGenerator(9,0)
+solution_generator.fill_values()
+solution = solution_generator.get_board()
 
 puzzle = generate_sudoku(9,30)
 
@@ -30,25 +34,25 @@ while running:
                     board.select(r,c)
 
     #keyboard inputs
-    if event.type == pygame.KEYDOWN and board.selected:
-        r,c = board.selected
+        if event.type == pygame.KEYDOWN and board.selected:
+            r,c = board.selected
 
-        if event.key == pygame.K_UP and r > 0:
-            board.select(r-1, c)
-        if event.key == pygame.K_DOWN and r < 8:
-            board.select(r+1, c)
-        if event.key == pygame.K_RIGHT and c < 0:
-            board.select(r, c+1)
-        if event.key == pygame.K_LEFT and c < 8:
-            board.select(r, c-1)
+            if event.key == pygame.K_UP and r > 0:
+                board.select(r-1, c)
+            if event.key == pygame.K_DOWN and r < 8:
+                board.select(r+1, c)
+            if event.key == pygame.K_RIGHT and c < 8:
+                board.select(r, c+1)
+            if event.key == pygame.K_LEFT and c < 0:
+                board.select(r, c-1)
 
 
-        if pygame.K_1 <= event.key <= pygame.K_9:
-            value = event.key - pygame.K_0
-            board.sketch(value)
+            if pygame.K_1 <= event.key <= pygame.K_9:
+                value = event.key - pygame.K_0
+                board.sketch(value)
 
-        if event.key == pygame.K_BACKSPACE:
-            board.clear()
+            if event.key == pygame.K_BACKSPACE:
+                board.clear()
 
     board.draw()
     pygame.display.update()
