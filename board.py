@@ -111,4 +111,10 @@ class Board:
                     return False
         return True
 
-
+    def reset_to_original(self):
+        for r in range(9):
+            for c in range(9):
+                value = self.original[r][c]
+                cell = self.cells[r][c]
+                cell.set_cell_value(value)
+                cell.set_sketched_value(0)
