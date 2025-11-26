@@ -7,6 +7,7 @@ board_size = cell_size * 9
 class Board:
 
     def __init__(self, screen, board, solution):
+
         self.screen = screen
         self.board = board
         self.original = board
@@ -21,6 +22,12 @@ class Board:
                 row_list.append(Cell(value, r, c, screen))
             self.cells.append(row_list)
 
+    def is_full(self):
+        for r in range(9):
+            for c in range(9):
+                if self.board[r][c] == 0:
+                    return False
+        return True
 
     def draw(self):
         for r in range(9):
