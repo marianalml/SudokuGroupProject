@@ -197,8 +197,7 @@ while running:
                 solution = None
             elif button_rects["reset"].collidepoint(x, y):
                 # Reset the current puzzle
-                puzzle, solution = start_new_game(difficulty)
-                board = Board(screen, puzzle, solution)
+                board.reset_to_original()
             elif button_rects["exit"].collidepoint(x, y):
                 running = False
             else:
