@@ -10,7 +10,7 @@ class Board:
 
         self.screen = screen
         self.board = board
-        self.original = board
+        self.original = [row[:] for row in board]
         self.solution = solution
         self.selected = None
 
