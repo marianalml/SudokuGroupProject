@@ -100,16 +100,15 @@ def draw_end_screen(text):
 
 
 def start_new_game(removed_count):
-    sol_gen = SudokuGenerator(9, 0)
-    sol_gen.fill_values()
-    solution = [row[:] for row in sol_gen.get_board()]
+   gen = SudokuGenerator(9, removed_count)
+   gen.fill_values()
 
-    puzzle_gen = SudokuGenerator(9, removed_count)
-    puzzle_gen.fill_values()
-    puzzle_gen.remove_cells()
-    puzzle = [row[:] for row in puzzle_gen.get_board()]
+   solution = [row[:] for row in gen.get_board()]
 
-    return puzzle, solution
+   gen.remove_cells()
+   puzzle = [row[:] for row in gen.get_board()]
+
+   return puzzle, solution
 
 
 def check_board_complete(board):
